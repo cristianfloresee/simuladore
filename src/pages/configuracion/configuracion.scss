@@ -1,0 +1,118 @@
+page-configuracion {
+
+      ion-select {
+        margin: auto;
+        max-width: 90%;
+        font-size: 2rem;
+        color: #6f82a7;
+        height: 55px;
+      }
+
+      .select-md .select-icon {
+        height: auto;
+      }
+
+      .round {
+        border-radius: 8%;
+        }
+        .scroll-content {
+        overflow: hidden;
+        border-radius: 3%;
+        }
+
+      .header {
+        color:            white;
+        margin:           0 !important;
+        padding:          1.4rem;
+        font-size:        1.8rem;
+        text-align:       center;
+        font-weight:      bold;
+        text-transform:   uppercase;
+        background-color: color($colors, blue);
+      }
+
+      .fecha-asistencia{
+        margin:          0;
+        display:         flex;
+        align-items:     center;
+        justify-content: center;
+        .fecha-asistencia__group {
+          flex: 1;
+          text-align: center;
+          .title {
+            color:            white;
+            margin:           0;
+            font-size:        1.6rem;
+            text-transform:   uppercase;
+            background-color: color($colors, blue_medium);
+            padding: .8rem;
+          }
+          .content {
+            padding: .8rem;
+            color:            color($colors, dark_gray);
+            font-size:        1.4rem;
+            background-color: color($colors, light);
+            text-transform:   uppercase;
+            display: block;
+          }
+          & + .fecha-asistencia__group {
+            .title { border-left: 1px solid white; }
+            .content { border-left: 1px solid color($colors, dark_gray); }
+          }
+        }
+      }
+        .descr {
+        .title {
+          text-align: center;
+          color:            white;
+          margin:           0;
+          font-size:        1.6rem;
+          text-transform:   uppercase;
+          background-color: color($colors, blue_medium);
+          padding: .8rem;
+        }
+        .content {
+          color:            color($colors, dark_gray);
+          padding: 1.6rem;
+          font-size: 1.4rem;
+        margin: 0 0 1.6rem;
+        text-transform:   uppercase;
+        }
+      }
+        button.footer-button {
+        height: 8%;
+        //background-color: #578be4;
+        bottom: 0px;
+        position: absolute;
+        margin: 0;
+        font-weight: bold;
+        }
+
+
+
+
+        ion-modal,
+        .show-page {
+          // transparent black background overlay
+          background-color: rgba(0, 0, 0, .5) !important;
+          padding: 50px !important;
+        }
+        .toolbar-background {
+          color: red !important;
+        }
+        ion-modal.modal-wrapper {
+          transform: translateY(30%) !important;
+        }
+        ion-page.modal {
+          padding: 30px;
+          background: rgba(0, 0, 0, 0.5);
+        }
+        .modal-backdrop-bg {
+          background-color: #000;
+          opacity: 0;
+        }
+        .active .modal-backdrop-bg {
+          opacity: 0.5;
+        }
+
+    }

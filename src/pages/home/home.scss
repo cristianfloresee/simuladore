@@ -1,0 +1,83 @@
+page-home {
+  .home{
+    position: relative;
+
+    .bottom{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .request-controls{
+        
+    }
+
+    .popover {
+        width:94%;
+        background: #ec407a;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 5px;
+        padding: 4px 12px;
+ 
+        
+    }
+
+    h4 {
+        color: #fce4ec;
+        text-transform: uppercase;
+        font-size: .7em;
+        letter-spacing: 1px;
+        margin:0;padding:0;
+    }
+
+     ion-col p {
+    color: #fff;
+    margin: 2px 0 0 0;
+}
+   
+}
+
+
+ion-modal,
+.show-page {
+  // transparent black background overlay
+  background-color: rgba(0, 0, 0, .5) !important;
+  padding: 50px !important;
+}
+.toolbar-background {
+  color: red !important;
+}
+ion-modal.modal-wrapper {
+  transform: translateY(30%) !important;
+}
+ion-page.modal {
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal-backdrop-bg {
+  background-color: #000;
+  opacity: 0;
+}
+.active .modal-backdrop-bg {
+  opacity: 0.5;
+}
+
+ion-modal.inset-modal {
+	// transparent black background overlay
+	background-color: rgba(0, 0, 0, .7) !important;
+	transition: opacity .25s ease-in-out;
+	padding: 5vh 5vw;
+}
+
+}
+
+ion-modal.inset-modal {
+	// transparent black background overlay
+	background-color: rgba(0, 0, 0, .7) !important;
+	transition: opacity .25s ease-in-out;
+	padding: 5vh 5vw;
+}
+
+

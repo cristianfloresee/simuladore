@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Simulador</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openModal()">
+        <ion-icon name="md-options"></ion-icon>
+      </button>
+      <button *ngIf="isTracking == 0" ion-button icon-only (click)="startGeolocation(selected_unit_id)">
+        <ion-icon name="md-locate"></ion-icon>
+      </button>
+      <button *ngIf="isTracking == 1" ion-button icon-only (click)="stopGeolocation()">
+        <ion-icon name="md-square"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div #map id="map" style="height: 100%;">
+  </div>
+  
+  <h2>contador: {{cont}}</h2>
+
+
+  <h5>Estado:</h5>
+  <h5 *ngIf="isTracking == 0">Inactivo</h5>
+  <h5 *ngIf="isTracking == 1">En Seguimiento</h5>
+  <h5>Longitud:</h5>
+  <h5>{{long}}</h5>
+  <h5>Latitud:</h5>
+  <h5>{{lat}}</h5>
+
+  <!--<h5>{{driver_by_unit_id?.name}}{{driver_by_unit_id?.surname1}}{{driver_by_unit_id?.surname2}}</h5>-->
+  <!--<h5>Compañia:</h5>-->
+
+
+  <label>Categoria Transporte:</label>
+  <h5>{{selected_category_id}}</h5>
+  <!--<select [(ngModel)]="selected_category_id" (change)="onSelectCategory($event.target.value)">
+    <option value="0">--Seleccionar Transporte--</option>
+    <option *ngFor="let category of all_categories" value={{category.id}}>{{category.name}}</option>
+  </select>-->
+
+  <label>Unidad:</label>
+  <h5>{{selected_unit_id}}</h5>
+
+  <!--<select [(ngModel)]="selected_unit_id" (change)="onSelectUnit($event.target.value)">
+    <option value="0">--Seleccionar Unidad--</option>
+    <option *ngFor="let unit of units_by_category_id " value={{unit.id}}>{{unit.name}}</option>
+  </select>-->
+
+  <!--<label *ngIf="selected_unit_id == undefined || selected_category_id == ''">LISTO!</label>
+  <button ion-button *ngIf="isTracking == 0" [disabled]="selected_category_id == 0 || selected_unit_id == 0" (click)="startGeolocation(selected_unit_id)">Iniciar Seguimiento</button>
+  <button ion-button *ngIf="isTracking == 1" (click)="stopGeolocation()">Detener Seguimiento</button>-->
+
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-content [style.background-color]="color" class="round">
+
+  <h3 class="header">CONFIGURACIÓN</h3>
+
+  <div class="descr">
+    <h4 class="title">INSTITUCIÓN</h4>
+    <!--(change)="onSelectCategory($event.target.value)" -->
+    <ion-item>
+      <ion-select [(ngModel)]="selected_category_id" (ionChange)="onSelectCategory()" okText="Aceptar" cancelText="Cancelar">
+        <!--<ion-option value="0">--Seleccionar Transporte--</ion-option>-->
+        <ion-option *ngFor="let category of all_categories" value={{category.id}}>{{category.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <div class="descr">
+    <h4 class="title">DIVISIÓN</h4>
+    <ion-item>
+      <!--(change)="onSelectUnit($event.target.value)"-->
+      <ion-select [(ngModel)]="selected_unit_id" (ionChange)="onSelectUnit()" okText="Aceptar" cancelText="Cancelar">
+        <ion-option *ngFor="let unit of units_by_category_id" value={{unit.id}}>{{unit.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+
+  <div class="descr">
+    <h4 class="title">PERSONAL</h4>
+    <!--<ion-select [(ngModel)]="selected_category_id" (change)="onSelectCategory($event.target.value)">
+     
+      <option *ngFor="let category of all_categories" value={{category.id}}>{{category.name}}</option>
+    </ion-select>-->
+  </div>
+  <button ion-button full color="danger" class="footer-button" (click)="dismiss(selected_category_id, selected_unit_id)">ACEPTAR</button>
+</ion-content>
