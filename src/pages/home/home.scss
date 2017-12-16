@@ -9,7 +9,7 @@ page-home {
     }
 
     .request-controls{
-        
+
     }
 
     .popover {
@@ -20,14 +20,14 @@ page-home {
         margin-right: auto;
         border-radius: 5px;
         padding: 4px 12px;
- 
-        
+
+
     }
 
     h4 {
         color: #fce4ec;
         text-transform: uppercase;
-        font-size: .7em;
+        font-size: .62em;
         letter-spacing: 1px;
         margin:0;padding:0;
     }
@@ -35,8 +35,12 @@ page-home {
      ion-col p {
     color: #fff;
     margin: 2px 0 0 0;
+    font-size: 1rem;
 }
-   
+.coords {
+  font-size: .9rem;
+}
+
 }
 
 

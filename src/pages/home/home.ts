@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController, ModalController } from 'ionic-angular';
-//import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { IonicPage, NavController, LoadingController, ModalController, Platform } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from "angularfire2/database-deprecated";
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -23,9 +22,12 @@ import {
 export class HomePage {
 
   private watch: any;
-  public lat = 0;
-  public long = 0;
-  public cont = 0; //CONTADOR DE COORDENADAS ENVIADAS A LA NUBE
+  public lat: any = '--';
+  public long: any = '--';
+  public cont: any = '--'; //CONTADOR DE COORDENADAS ENVIADAS A LA NUBE
+  public last_lat;
+  public last_long;
+  public last_count;
 
   public selected_category_id;
   public selected_unit_id;
@@ -55,7 +57,8 @@ export class HomePage {
     private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
-    private googleMaps: GoogleMaps
+    private googleMaps: GoogleMaps,
+    public platform: Platform
   ) {
 
     let loader = this.loadingCtrl.create({
@@ -63,12 +66,16 @@ export class HomePage {
     });
     loader.present().then(() => {
 
+      this.platform.ready().then(() => {
+        this.loadMap();
+      });
+
       this.tracker = this.afDB.list("/geolocation_history");
       //this.driver_by_unit_id.name = "--";
 
       this.category_transport = this.afDB.list('/transport_categories');
       this.unit_transport = afDB.list('/transport_units');
-      this.driver_transport = afDB.list('/transport_drivers');
+      //this.driver_transport = afDB.list('/transport_drivers');
 
       let count1 = 0;
       this.category_transport.subscribe((data) => {
@@ -126,13 +133,17 @@ export class HomePage {
     //CREA REGISTROS CON KEYS IDENTICAS A LA KEY DE LA UNIDAD DE TRANSPORTE
     this.active_units = this.afDB.object('/transport_active_units/' + this.selected_unit_id);
 
+
     this.isTracking = 1;
+
+
+    let only = true;
     let fake = 0.0001000;
     let options = { enableHighAccuracy: true, frequency: 5000 };
     this.watch = this.geolocation.watchPosition(options)
       .subscribe((data) => {
         console.log("datito: ", data);
-        if(data.coords){
+        if (data.coords) {
 
           fake = fake + 0.0001000;
           this.lat = data.coords.latitude + fake;
@@ -145,13 +156,40 @@ export class HomePage {
           };
           this.map.moveCamera(position);
 
+          if (this.selfmarker != null && data.coords.latitude != 0 && data.coords.longitude != 0) {
+            //actualiza el marcador
+            this.selfmarker.setPosition(userPosition);
+          } else {
+            let markerIcon = {
+              'url': 'https://lh3.googleusercontent.com/zPPRTrpL-rx7OMIqlYN63z40n2UBJDa3I3n5C3Z9YtKGsTXPfdtks18Y0gdvfcz6tEsV=w170',
+              'size': {
+                width: 20,
+                height: 20,
+              }
+            }
+            let markerOptions: MarkerOptions = {
+              position: userPosition,
+              animation: 'DROP',
+              icon: 'blue'
+            };
+
+            if(only){
+              only=false;
+              this.map.addMarker(markerOptions)
+              .then((marker) => {
+                this.selfmarker = marker;
+              });
+            }
+
+          }
+
           this.cont = this.cont + 1;
           let date = this.timeConverter(data.timestamp);
           this.tracker.push({ lat: this.lat, long: this.long, transport_unit_id: _unit_id, timestamp: data.timestamp, created_at: date });
           this.unit_tracker.update({ last_latitude: this.lat, last_longitude: this.long, created_at: date, state: this.isTracking });
           this.active_units.set({ last_latitude: this.lat, last_longitude: this.long, created_at: date });
 
-          console.log(data);
+          console.log("kris: ", data);
         }
 
       });
@@ -159,8 +197,11 @@ export class HomePage {
 
   stopGeolocation() {
     this.isTracking = 0;
-    this.lat = 0;
-    this.long = 0;
+    //this.last_lat = this.lat;
+    //this.last_long = this.long;
+    //this.last_count = this.cont;
+    //this.lat = 0;
+    //this.long = 0;
     this.unit_tracker.update({ state: this.isTracking });
     this.watch.unsubscribe(); //DEJO DE HACER GEOLOCALIZACION
     this.active_units.remove(); //ELIMINO DISPOSITIVO DE LISTA DISPOSITIVOS ACTIVOS DE LA NUBE
@@ -180,7 +221,7 @@ export class HomePage {
   }
 
   openModal() {
-    let myModal = this.modalCtrl.create('ConfiguracionPage', { selected_category_id: this.selected_category_id, selected_unit_id: this.selected_unit_id } , { cssClass: 'inset-modal' });
+    let myModal = this.modalCtrl.create('ConfiguracionPage', { selected_category_id: this.selected_category_id, selected_unit_id: this.selected_unit_id }, { cssClass: 'inset-modal' });
 
     myModal.onDidDismiss(response => {
 
@@ -199,7 +240,7 @@ export class HomePage {
 
   }
 
-  
+
   loadMap() {
     this.mapElement = document.getElementById('map');
 

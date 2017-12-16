@@ -63,6 +63,7 @@ export class ConfiguracionPage {
 
 
   onSelectCategory() {
+    //item.key == this.selected_category_id;
     this.units_by_category_id = this.all_units.filter((item) => item.id_transport_category == this.selected_category_id);
     console.log("categoria seleccionada: ", this.selected_category_id);
     console.log("unidades de la categoria: ", this.units_by_category_id);

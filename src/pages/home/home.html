@@ -15,37 +15,69 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="home">
 
-  <div #map id="map" style="height: 100%;">
-  </div>
-  
-  <h2>contador: {{cont}}</h2>
+    <div #map id="map" style="height: 100%;"></div>
+
+      <div class="bottom request-controls">
+        <ion-grid>
+            <ion-row style="padding: 0 3px;">
+                <ion-col col-3>
+                  <div class="popover">
+                    <h4>Nº:</h4> <p>{{cont}}</p>
+                    <!--<p *ngIf="!lat">--</p>-->
+                  </div>
+                </ion-col>
+                <ion-col col-5>
+                  <div class="popover">
+                    <h4>Estado:</h4>
+                    <p *ngIf="isTracking == 0">Inactivo</p>
+                    <p *ngIf="isTracking == 1">En Seguimiento</p>
+                  </div>
+                </ion-col>
+                <ion-col col-4>
+                    <div class="popover">
+                      <h4>Patente:</h4>
+                      <p>--</p>
+
+                    </div>
+                  </ion-col>
+              </ion-row>
+
+          <ion-row >
+            <ion-col col-6>
+              <div class="popover">
+                <h4>Latitud:</h4>
+                <p class="coords" *ngIf="lat">{{lat}}</p>
+                <!--<p *ngIf="!lat">--</p>-->
+              </div>
+            </ion-col>
+            <ion-col col-6>
+              <div class="popover">
+                <h4>Longitud:</h4>
+                <p class="coords" *ngIf="lat">{{long}}</p>
+                <!--<p *ngIf="!lat">--</p>-->
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
 
 
-  <h5>Estado:</h5>
-  <h5 *ngIf="isTracking == 0">Inactivo</h5>
-  <h5 *ngIf="isTracking == 1">En Seguimiento</h5>
-  <h5>Longitud:</h5>
-  <h5>{{long}}</h5>
-  <h5>Latitud:</h5>
-  <h5>{{lat}}</h5>
-
-  <!--<h5>{{driver_by_unit_id?.name}}{{driver_by_unit_id?.surname1}}{{driver_by_unit_id?.surname2}}</h5>-->
-  <!--<h5>Compañia:</h5>-->
 
 
-  <label>Categoria Transporte:</label>
-  <h5>{{selected_category_id}}</h5>
-  <!--<select [(ngModel)]="selected_category_id" (change)="onSelectCategory($event.target.value)">
+
+
+
+</ion-content>
+
+
+ <!--<select [(ngModel)]="selected_category_id" (change)="onSelectCategory($event.target.value)">
     <option value="0">--Seleccionar Transporte--</option>
     <option *ngFor="let category of all_categories" value={{category.id}}>{{category.name}}</option>
   </select>-->
 
-  <label>Unidad:</label>
-  <h5>{{selected_unit_id}}</h5>
-
-  <!--<select [(ngModel)]="selected_unit_id" (change)="onSelectUnit($event.target.value)">
+   <!--<select [(ngModel)]="selected_unit_id" (change)="onSelectUnit($event.target.value)">
     <option value="0">--Seleccionar Unidad--</option>
     <option *ngFor="let unit of units_by_category_id " value={{unit.id}}>{{unit.name}}</option>
   </select>-->
@@ -53,5 +85,3 @@
   <!--<label *ngIf="selected_unit_id == undefined || selected_category_id == ''">LISTO!</label>
   <button ion-button *ngIf="isTracking == 0" [disabled]="selected_category_id == 0 || selected_unit_id == 0" (click)="startGeolocation(selected_unit_id)">Iniciar Seguimiento</button>
   <button ion-button *ngIf="isTracking == 1" (click)="stopGeolocation()">Detener Seguimiento</button>-->
-
-</ion-content>
